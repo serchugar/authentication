@@ -1,5 +1,6 @@
 using JWT.Configuration;
 using JWT.Data;
+using JWT.Middleware;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,7 @@ if(builder.Environment.IsDevelopment()) builder.Services.AddSwaggerConfig();
 WebApplication app = builder.Build();
 #region Middleware
 if(app.Environment.IsDevelopment()) app.UseSwaggerConfig();
+app.UseCustomExceptionHandler();
 #endregion
 
 app.MapControllers();
