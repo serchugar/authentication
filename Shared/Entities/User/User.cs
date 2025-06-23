@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Shared.ValueObjects;
 
-namespace Shared.Entities;
+namespace Shared.Entities.User;
 
 [Table("users", Schema = "authentication")]
 public class User
