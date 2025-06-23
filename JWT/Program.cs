@@ -1,6 +1,17 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using JWT.Configuration;
 
-app.MapGet("/", () => "Hello World!");
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+if (builder.Environment.IsDevelopment()) builder.Configuration.AddUserSecrets<Program>();
+#region Services
+builder.Services.AddDependencyInjectionConfig();
+builder.Services.AddControllers();
+if(builder.Environment.IsDevelopment()) builder.Services.AddSwaggerConfig();
+#endregion
 
+WebApplication app = builder.Build();
+#region Middleware
+if(app.Environment.IsDevelopment()) app.UseSwaggerConfig();
+#endregion
+
+app.MapControllers();
 app.Run();
