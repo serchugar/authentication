@@ -4,6 +4,8 @@ using Shared.Entities.User;
 
 namespace JWT.Services.Users;
 
+[ApiController]
+[Route("api/[controller]")]
 public class UserController(UserRepository repo) : BaseController
 {
     [HttpGet]
