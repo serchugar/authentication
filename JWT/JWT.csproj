@@ -14,8 +14,7 @@
       </PackageReference>
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
       <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
-      <PackageReference Include="Serchugar.Base.Backend" Version="0.1.0-preview.4" />
-      <PackageReference Include="Serchugar.Base.Shared" Version="0.1.0-preview.3" />
+      <PackageReference Include="Serchugar.Base.Backend" Version="0.1.0-preview.5" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
     </ItemGroup>
 

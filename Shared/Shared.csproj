@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
-      <PackageReference Include="Serchugar.Base.Shared" Version="0.1.0-preview.3" />
+      <PackageReference Include="Serchugar.Base.Shared" Version="0.1.0-preview.4" />
     </ItemGroup>
 
 </Project>

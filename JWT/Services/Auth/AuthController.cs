@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JWT.Services.Users;
+using Microsoft.AspNetCore.Mvc;
 using Serchugar.Base.Backend;
 using Shared.Entities.User;
 
@@ -10,7 +11,7 @@ public class AuthController(AuthService service) : BaseController
 {
     [HttpPost("register")]
     public async Task<ActionResult<User>> Register([FromBody] UserDTO request) =>
-        SetResponse(await service.RegisterAsync(request));
+        SetResponse(await service.RegisterAsync(request), true, typeof(UserController));
 
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login([FromBody] UserDTO request) =>
