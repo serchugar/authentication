@@ -15,5 +15,7 @@ public class UserConfiguration : IEntityTypeConfiguration<UserModel>
             auditInfo.Property(ai => ai.CreatedAt);
             auditInfo.Property(ai => ai.UpdatedAt);
         });
+        
+        builder.Property(u => u.Role).HasConversion<string>();
     }
 }

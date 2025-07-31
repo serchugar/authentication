@@ -21,4 +21,8 @@ public class JwtAuthController(JwtAuthService service) : BaseController
     [Authorize]
     [HttpGet("authorized")]
     public ActionResult AuthenticatedOnly() => Ok("Authenticated");
+    
+    [Authorize(Roles = nameof(UserRole.Admin))]
+    [HttpGet("admin")]
+    public ActionResult AdminOnly() => Ok("Admin Authenticated");
 }

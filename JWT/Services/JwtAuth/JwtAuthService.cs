@@ -47,7 +47,8 @@ public class JwtAuthService(UserRepository users, IConfiguration config)
         Dictionary<string, object> claims = new()
         {
             [ClaimTypes.Name] = user.Username,
-            [ClaimTypes.NameIdentifier] = user.Id
+            [ClaimTypes.NameIdentifier] = user.Id,
+            [ClaimTypes.Role] = user.Role.ToString(),
         };
 
         SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(config["JwtSettings:Token"]!));

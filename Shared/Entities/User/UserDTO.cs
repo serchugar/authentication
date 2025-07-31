@@ -9,4 +9,5 @@ public class UserDTO
     [Key]
     public Guid Id { get; set; }
     public string Username { get; set; } = null!;
+    public UserRole Role { get; set; }
 }
