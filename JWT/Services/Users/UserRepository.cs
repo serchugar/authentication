@@ -7,28 +7,28 @@ using Shared.Entities.User;
 namespace JWT.Services.Users;
 
 public class UserRepository(AppDbContext context, string singular = "User", string plural = "Users")
-    : BaseRepository<User>(context, singular, plural)
+    : BaseRepository<UserModel>(context, singular, plural)
 {
-    public async Task<Response<IEnumerable<User>>> GetAllAsync() => 
+    public async Task<Response<IEnumerable<UserModel>>> GetAllAsync() => 
         await base.GetAllAsync();
     
-    public async Task<Response<User>> GetByNameExactAsync(string username)
+    public async Task<Response<UserModel>> GetByNameExactAsync(string username)
     {
-        Response<IEnumerable<User>> result = await base.GetByFilterAsync(user => EF.Functions.ILike(user.Username, username));
-        if (result.Code.IsError()) return result.MapErrorResponse<User>();
+        Response<IEnumerable<UserModel>> result = await base.GetByFilterAsync(user => EF.Functions.ILike(user.Username, username));
+        if (result.Code.IsError()) return result.MapErrorResponse<UserModel>();
         
-        User? user = result.Data!.FirstOrDefault();
-        if (user is null) return Response<User>.FromError(ResponseCodes.NotFound, $"{singular} not found");
+        UserModel? user = result.Data!.FirstOrDefault();
+        if (user is null) return Response<UserModel>.FromError(ResponseCodes.NotFound, $"{singular} not found");
         
-        return Response<User>.FromSuccess(ResponseCodes.Success, user);
+        return Response<UserModel>.FromSuccess(ResponseCodes.Success, user);
     }
 
-    public async Task<Response<User>> CreateAsync(User userModel) =>
-        await base.CreateAsync(userModel);
+    public async Task<Response<UserModel>> CreateAsync(UserModel user) =>
+        await base.CreateAsync(user);
     
-    public async Task<Response<User>> DeleteAsync(string username)
+    public async Task<Response<UserModel>> DeleteAsync(string username)
     {
-        Response<User> result = await GetByNameExactAsync(username);
+        Response<UserModel> result = await GetByNameExactAsync(username);
         if (result.Code.IsError()) return result;
         
         return await base.DeleteAsync(result.Data!);

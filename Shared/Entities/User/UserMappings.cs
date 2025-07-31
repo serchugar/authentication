@@ -6,10 +6,19 @@ namespace Shared.Entities.User;
 [Mapper]
 public static partial class UserMappings
 {
-    public static partial UserDTO Map(this User source);
-    public static partial User Map(this UserDTO source);
-    public static partial IEnumerable<UserDTO> Map(this IEnumerable<User> source);
-    public static partial IEnumerable<User> Map(this IEnumerable<UserDTO> source);
-    public static partial Response<UserDTO> Map(this Response<User> source);
-    public static partial Response<IEnumerable<UserDTO>> Map(this Response<IEnumerable<User>> source);
+    // Only RequestDTO -> Model are necessary
+    // public static partial UserRequestDTO MapToRequest(this UserModel source);
+    public static partial UserModel Map(this UserRequestDTO source);
+    // public static partial IEnumerable<UserRequestDTO> MapToRequest(this IEnumerable<UserModel> source);
+    public static partial IEnumerable<UserModel> Map(this IEnumerable<UserRequestDTO> source);
+    // public static partial Response<UserRequestDTO> MapToRequest(this Response<UserModel> source);
+    // public static partial Response<IEnumerable<UserRequestDTO>> MapToRequest(this Response<IEnumerable<UserModel>> source);
+    
+    // UserDTO <-> Model
+    public static partial UserDTO Map(this UserModel source);
+    public static partial UserModel Map(this UserDTO source);
+    public static partial IEnumerable<UserDTO> Map(this IEnumerable<UserModel> source);
+    public static partial IEnumerable<UserModel> Map(this IEnumerable<UserDTO> source);
+    public static partial Response<UserDTO> Map(this Response<UserModel> source);
+    public static partial Response<IEnumerable<UserDTO>> Map(this Response<IEnumerable<UserModel>> source);
 }

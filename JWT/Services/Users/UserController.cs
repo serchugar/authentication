@@ -9,11 +9,11 @@ namespace JWT.Services.Users;
 public class UserController(UserRepository repo) : BaseController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetAll() => SetResponse(await repo.GetAllAsync());
+    public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll() => SetResponse((await repo.GetAllAsync()).Map());
     
     [HttpGet("{username}")]
-    public async Task<ActionResult<User>> GetByNameExact(string username) => SetResponse(await repo.GetByNameExactAsync(username));
+    public async Task<ActionResult<UserDTO>> GetByNameExact(string username) => SetResponse((await repo.GetByNameExactAsync(username)).Map());
 
     [HttpDelete("{username}")]
-    public async Task<ActionResult<User>> Delete(string username) => SetResponse(await repo.DeleteAsync(username));
+    public async Task<ActionResult<UserDTO>> Delete(string username) => SetResponse((await repo.DeleteAsync(username)).Map());
 }

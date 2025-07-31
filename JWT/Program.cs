@@ -24,7 +24,7 @@ app.UseCustomExceptionHandler();
 #endregion
 
 app.DiscoverControllerRoutes();
-app.DiscoverKeyedEntities(typeof(User).Assembly);
+app.DiscoverKeyedEntities(typeof(UserModel).Assembly);
 
 app.MapControllers();
 app.Run();

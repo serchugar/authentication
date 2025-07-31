@@ -5,7 +5,7 @@ using Shared.ValueObjects;
 namespace Shared.Entities.User;
 
 [Table("users", Schema = "authentication")]
-public class User
+public class UserModel
 {
     [Column("id"), Key]
     public Guid Id { get; set; } = Guid.NewGuid();
