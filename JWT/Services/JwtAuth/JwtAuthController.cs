@@ -1,4 +1,5 @@
 ﻿using JWT.Services.Users;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serchugar.Base.Backend;
 using Shared.Entities.User;
@@ -16,4 +17,8 @@ public class JwtAuthController(JwtAuthService service) : BaseController
     [HttpPost("login")]
     public async Task<ActionResult<string>> Login([FromBody] UserRequestDTO request) =>
         SetResponse(await service.LoginAsync(request));
+    
+    [Authorize]
+    [HttpGet("authorized")]
+    public ActionResult AuthenticatedOnly() => Ok("Authenticated");
 }
