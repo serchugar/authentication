@@ -23,8 +23,31 @@ public class UserRepository(AppDbContext context, string singular = "User", stri
         return Response<UserModel>.FromSuccess(ResponseCodes.Success, user);
     }
 
-    public async Task<Response<UserModel>> CreateAsync(UserModel user) =>
-        await base.CreateAsync(user);
+    public async Task<Response<UserModel>> UpdateAsync(string username, UserModel user)
+    {
+        Response<UserModel> result = await GetByNameExactAsync(username);
+        if (result.Code.IsError()) return result.MapErrorResponse<UserModel>();
+
+        Response<bool> newNameIsTaken = await CheckIfUserExistsAsync(user.Username);
+        if (newNameIsTaken.Code.IsError()) return result.MapErrorResponse<UserModel>();
+        if (newNameIsTaken.Data && user.Username != username) return Response<UserModel>.FromError(ResponseCodes.Conflict, "Username already taken");
+        
+        UserModel updatedUser = result.Data!;
+        updatedUser.Username = user.Username;
+        updatedUser.Role = user.Role;
+        updatedUser.AuditInfo.UpdatedAt = DateTime.UtcNow;
+        
+        return await base.UpdateAsync(updatedUser);
+    }
+
+    public async Task<Response<UserModel>> CreateAsync(UserModel user)
+    {
+        Response<bool> result = await CheckIfUserExistsAsync(user.Username);
+        if (result.Code.IsError()) return result.MapErrorResponse<UserModel>();
+        
+        if (result.Data) return Response<UserModel>.FromError(ResponseCodes.Conflict, $"{singular} already exists");
+        return await base.CreateAsync(user);
+    }
     
     public async Task<Response<UserModel>> DeleteAsync(string username)
     {

@@ -13,12 +13,6 @@ public class JwtAuthService(UserRepository users, IConfiguration config)
 {
     public async Task<Response<UserDTO>> RegisterAsync(UserRequestDTO request)
     {
-        Response<bool> result = await users.CheckIfUserExistsAsync(request.Username);
-        if (result.Code.IsError()) result.MapErrorResponse<UserRequestDTO>();
-
-        bool userExists = result.Data;
-        if (userExists) return Response<UserDTO>.FromError(ResponseCodes.Conflict, "Username already exists");
-
         UserModel newUser = new();
         string hashedPassword = new PasswordHasher<UserModel>().HashPassword(newUser, request.Password);
         
